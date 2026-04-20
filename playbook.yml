@@ -6,6 +6,7 @@
 
   vars:
     page_dest: /var/www/html/index.html
+    page_title: "Serveur déployé avec Ansible"
     yarn_repo_file: /etc/apt/sources.list.d/yarn.list
     yarn_repo_disabled_file: /etc/apt/sources.list.d/yarn.list.disabled
 
@@ -88,6 +89,22 @@
     - name: Afficher un extrait du contenu HTTP
       debug:
         msg: "{{ test_http.content[:200] if test_http.content is defined else 'Aucun contenu retourné' }}"
+    
+    - name: Déploiement serveur web
+      hosts: all
+      become: true
+
+  tasks:
+    - name: Installer nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Déployer le template
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
 
   handlers:
     - name: Redémarrer nginx

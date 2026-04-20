@@ -90,28 +90,70 @@ Faites preuve de pédagogie et soyez clair dans vos explications et procedures d
 **Question 1 :**  
 Pourquoi Ansible est-il qualifié d’outil "déclaratif" ?    
   
-*..Répondez à cet exercice ici..*
+*Ansible est dit déclaratif car on ne décrit pas les étapes techniques une par une, mais l’état final souhaité du système.
+Par exemple, on ne dit pas :
+installer nginx avec telle commande
+démarrer le service
+vérifier qu’il tourne
+On écrit simplement :
+"nginx doit être installé et présent"
+Ansible se charge ensuite de faire les actions nécessaires automatiquement pour atteindre cet état.*
 
 **Question 2 :**  
 Pourquoi l’utilisation de variables est-elle essentielle dans un playbook ?  
   
-*..Répondez à cet exercice ici..*
+*Les variables permettent de rendre les playbooks dynamiques et réutilisables.
+Au lieu de coder des valeurs en dur (nom, utilisateur, port…), on utilise des variables que l’on peut modifier facilement.*
 
 **Question 3 :**  
 En quoi Ansible facilite-t-il la gestion de plusieurs serveurs ?  
   
-*..Répondez à cet exercice ici..*
+*Ansible permet de gérer plusieurs serveurs en parallèle et de manière centralisée.
+Grâce à l’inventaire (inventory.ini), on peut :
+définir plusieurs machines
+les regrouper (web, db, etc.)
+appliquer les mêmes configurations à tous en une seule commande*
 
 **Question 4 :**  
 Quels sont les avantages et les limites d’Ansible dans un contexte DevOps ?   
   
-*..Répondez à cet exercice ici..*
+*Avantages
+- simple à apprendre (YAML lisible)
+- pas d’agent à installer (SSH)
+- idempotent (pas de duplication d’actions)
+- rapide à mettre en place
+- très adapté à l’automatisation et au déploiement*
+
+Limites
+- moins performant à très grande échelle (comparé à Puppet/Chef)
+- debugging parfois difficile
+- dépend de SSH (latence possible)
+- gestion d’états complexes moins poussée que certains concurrents*
   
 **Question 5 :**  
 Quelle est la différence entre les modules copy et template dans Ansible ?   
   
-*..Répondez à cet exercice ici..*
+copy
 
+- copie un fichier tel quel
+
+- aucune modification du contenu
+```
+copy:
+  src: fichier.html
+  dest: /var/www/html/index.html
+```
+
+template
+
+- copie un fichier dynamique
+
+- permet d’utiliser des variables "({{ }})"
+```
+template:
+  src: index.html.j2
+  dest: /var/www/html/index.html
+```
 ---------------------------------------------------
 Séquence 5 : Atelier  
 Difficulté : Moyenne (~1 heure)
